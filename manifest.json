@@ -3,15 +3,27 @@
   "name": "VK Music Now Playing",
   "description": "Отслеживает текущий трек в VK Music",
   "version": "1.0",
-  "permissions": ["scripting", "tabs", "activeTab"],
+
+  "permissions": [
+    "scripting",
+    "tabs",
+    "activeTab",
+    "storage",
+    "debugger",
+    "notifications"
+  ],
+
   "host_permissions": [
     "*://vk.com/*",
     "*://music.vk.com/*",
     "http://localhost:3000/*"
   ],
+
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "type": "module"
   },
+
   "content_scripts": [
     {
       "matches": [
@@ -19,6 +31,19 @@
         "*://music.vk.com/*"
       ],
       "js": ["content.js"]
+    }
+  ],
+
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "lib/managers/audioPlayerManager.js",
+        "lib/config/application.json"
+      ],
+      "matches": [
+        "*://vk.com/*",
+        "*://music.vk.com/*"
+      ]
     }
   ]
 }
